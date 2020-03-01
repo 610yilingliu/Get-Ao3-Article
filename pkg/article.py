@@ -33,7 +33,7 @@ class article(object):
 
     def getcontent(self):
         html = self.__html
-        pattern = re.compile(r'userstuff\"><p>([\s\S]*)<\!-- end cache -->')
+        pattern = re.compile(r'userstuff\">([\s\S]*)<\!-- end cache -->')
         search_result = pattern.search(html)
         # if is in Chapter
         if search_result == None:
@@ -47,6 +47,7 @@ class article(object):
             '<br/>': '\n',
             '<div>': '',
             '</div>':'',
+            '<p dir=\"ltr\">':'',
         }
         for key in replace_dict.keys():
             content = content.replace(key, replace_dict[key])

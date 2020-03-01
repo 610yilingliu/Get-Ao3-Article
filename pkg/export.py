@@ -6,7 +6,7 @@ def write_totxt(subfolder, title, author, content):
         print('maked')
     # replace invalid chars from file name
     winfname = ''
-    invalid_char = ['\\', '\/', ':', '*', '?', '\"', '<', '>', '|']
+    invalid_char = ['\\', '/', ':', '*', '?', '<', '>', '|','\"']
     for i in range(len(title)):
         if title[i] not in invalid_char:
             winfname += title[i]

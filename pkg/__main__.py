@@ -2,7 +2,7 @@ from article import article
 from router import ao3, fetch_pages
 from export import write_totxt
 
-pageurl = 'https://archiveofourown.org/tags/%E6%98%8E%E5%94%90'
+pageurl = 'https://archiveofourown.org/users/huaishang233/pseuds/huaishang233/works'
 
 
 def page_urls(url, getall = True):
