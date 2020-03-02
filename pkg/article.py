@@ -107,10 +107,6 @@ class article(object):
                 return cleaner(content)
         return ''
 
-if __name__ == '__main__':
-    a = article('https://archiveofourown.org/chapters/54629893?view_adult=true')
-    s = a.getchap()
-    print(s)
 
 
 
