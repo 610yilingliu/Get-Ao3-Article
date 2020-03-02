@@ -10,6 +10,7 @@ class ao3(object):
         html = req.text
         self.__html = html
         self.__url = url
+        self.__urltype = 0
 
     def geturl(self):
         return self.__url
@@ -33,16 +34,71 @@ class ao3(object):
         else:
             return []
 
+class urlanalyzer(object):
+    def __init__(self, url):
+        self.__url = url
+        pattern_pagenum = re.compile(r'\?page=(\d{1,})$')
+        pattern_searchresult = re.compile(r'&work_search%')
+        pattern_fandom = re.compile(r'works\?fandom_id=')
+        pattern_singlearticle = re.compile(r'/works/\d{1,}$')
+        if url.endswith('works'):
+            self.__urltype = 'works'
+        elif re.search(pattern_pagenum, url) != None:
+            self.__urltype = 'pagenum'
+        elif re.search(pattern_searchresult, url)!= None:
+            self.__urltype = 'searchresult'
+        elif re.search(pattern_fandom, url)!= None:
+            if re.search(pattern_pagenum, url) == None:
+                self.__urltype = 'fandom'
+            else:
+                self.__urltype = 'fandomwithnum'
+        elif url.endswith('bookmarks'):
+            self.__urltype = 'bookmarks'
+        elif url.endswith('collections'):
+            self.__urltype = 'collections'
+        elif url.endswith('series'):
+            self.__urltype = 'series'
+        elif re.search(pattern_singlearticle, url)!= None:
+            self.__urltype = 'article'
+        else:
+            self.__url = url + '/works'
+            self.__urltype = 'works'
 
-def fetch_pages(url):
-    end_pattern = re.compile(r'\?page=(\d{1,})$')
-    # if url is not end with page number
-    url_ls = []
-    if re.search(end_pattern, url) == None:
-        for i in range(1,100):
-            url_ls.append(url + '?page=' + str(i))
-    else:
-        baseurl = url.rstrip(string.digits)
-        for i in range(1,100):
-            url_ls.append(baseurl + '?page=' + str(i))
-    return url_ls
+    def geturl(self):
+        return self.__url
+
+    def geturltype(self):
+        return self.__urltype
+
+    def fetch_pages(self):
+        url = self.__url
+        tp = self.__urltype
+        url_ls = []
+        if tp == 'works' or tp == 'series' or tp == 'collections' or tp == 'bookmarks' or tp == 'fandom':
+            for i in range(1,100):
+                url_ls.append(url + '?page=' + str(i)) 
+            return url_ls
+            return   
+        elif tp =='pagenum' or tp == 'fandomwithnum':
+            baseurl = url.rstrip(string.digits)
+            for i in range(1,100):
+                url_ls.append(baseurl + '?page=' + str(i))
+            return url_ls
+        elif tp == 'searchresult':
+            baseurl_prefix = 'https://archiveofourown.org/works/search?page='
+            is_pagenum_pattern = re.compile(r'page=')
+            if is_pagenum_pattern.search(url) == None:
+                suffix_pattern = re.compile(r'https:\/\/archiveofourown\.org\/works\/search\?(.*?)$')
+                base_suffix = suffix_pattern.search(url).groups()[0]
+                for i in range(1,100):
+                    url_ls.append(baseurl_prefix + str(i) + base_suffix)
+                return url_ls
+            else:
+                suffix_pattern = re.compile(r'(?<=https:\/\/archiveofourown\.org\/works\/search\?page=)\d+&(.*)')
+                suffix_withnum = suffix_pattern.search(url).groups()[0]
+                base_suffix = suffix_withnum.lstrip(string.digits)
+                for i in range(1,100):
+                    url_ls.append(baseurl_prefix + str(i) + base_suffix)
+                return url_ls
+        elif tp == 'article':
+            pass
