@@ -2,7 +2,7 @@ from article import article
 from router import ao3, fetch_pages
 from export import write_totxt
 
-pageurl = 'https://archiveofourown.org/users/huaishang233/pseuds/huaishang233/works'
+pageurl = 'https://archiveofourown.org/users/jmzn0126/pseuds/jmzn0126/works'
 
 
 def page_urls(url, getall = True):
@@ -22,7 +22,11 @@ for page in page_ls:
             title = article_wanted.gettitle()
             author = article_wanted.getauthor()
             content = article_wanted.getcontent()
-            write_totxt('./article', title = title, author = author, content = content)
+            summary = article_wanted.getsummary()
+            notes = article_wanted.getnotes()
+            chapter = article_wanted.getchap()
+
+            write_totxt('./article', title = title, author = author, content = content, chapter = chapter, summary = summary, notes = notes)
     else:
         print('All Articles Downloaded')
         break

@@ -1,6 +1,39 @@
 import requests
 import re
 
+def cleaner(text):
+    replace_dict = {
+        '<!--main content-->':'\n',
+        '<!--chapter content-->':'\n',
+        '<div class=\"userstuff module\" role=\"article\">': '',
+        '<div class=\"userstuff\">': '',
+        '<h3 class=\"landmark heading\" id=\"work\">':'',
+        '<div id=\"chapters\" role=\"article\">':'',
+        '</h3>': '\n',
+        '<p>':'',
+        '</p>': '\n',
+        '<br/>': '\n',
+        '<div>': '',
+        '</div>':'',
+        '<p dir=\"ltr\">':'',
+        '<blockquote class=\"userstuff\">': '',
+        '</blockquote>':'\n',
+        '<!-- end cache -->':'\n',
+        '<!--/main-->':'\n',
+        '<!--/chapter-->': '\n',
+        '<h3 class="heading">':'',
+        '<div class="notes module" role="complementary">':'',
+        '</a>':' '
+
+    }
+    if text!= None:
+        for key in replace_dict.keys():
+            text = text.replace(key, replace_dict[key])
+        return text.strip()
+    else:
+        return None
+    
+
 class article(object):
     def __init__(self, url, 
     header = {
@@ -30,14 +63,23 @@ class article(object):
         pattern = re.compile(r'<a rel=\"author\" href=\"\/users\/(.*?)/')
         author = pattern.search(html).groups()[0]
         return author
+
+    def getchap(self):
+        html = self.__html
+        pattern = re.compile(r'<h3 class=\"title\">\s+<a href=.*>(.*?)</a>')
+        search_result = pattern.findall(html)
+        if search_result != []:
+            chapters = [cleaner(chapter) for chapter in search_result]
+            return chapters
+        return None
     
     def getsummary(self):
         html = self.__html
         pattern = re.compile(r'<h3 class=\"heading\">Summary\:<\/h3>([\s\S]*)<\/blockquote>')
-        search_result = pattern.search(html)
-        if search_result != None:
-            summary = search_result.groups()[0]
-            return summary
+        search_result = pattern.findall(html)
+        if search_result !=[]:
+            summaries = [cleaner(summary) for summary in search_result]
+            return summaries
         return None
 
     def getnotes(self):
@@ -45,42 +87,30 @@ class article(object):
         html = self.__html
         pattern = re.compile(r'<h3 class=\"heading\">Notes\:<\/h3>([\s\S]*?)<\/blockquote>')
         search_result = pattern.findall(html)
-        return search_result
+        if search_result!= []:
+            notes = [cleaner(note) for note in search_result]
+            return notes
+        return None
 
     def getcontent(self):
         html = self.__html
-        pattern = re.compile(r'<\!--main content-->([\s\S]*)((?=<\!--\/chapter-->)|(?=<\!--\/main-->))')
-        search_result = pattern.search(html)
-        # not good enough.((?<=<\!--main content-->)|(?<=<\!--chapter content-->))([\s\S]*)((?=<\!--\/chapter-->)|(?=<\!--\/main-->)) works in regexr but does not work here
-        if search_result == None:
-            pattern = re.compile(r'<\!--chapter content-->([\s\S]*)((?=<\!--\/chapter-->)|(?=<\!--\/main-->))')
+        # not good enough.(?:<\!--main content-->|<\!--chapter content-->)[\s\S]*(?:<\!--\/chapter-->|<\!--\/main-->) works in regexr but does not work here
+        pattern1 = re.compile(r'<\!--chapter content-->([\s\S]*)<\!--\/main-->')
+        pattern2 = re.compile(r'<\!--chapter content-->([\s\S]*)<\!--\/chapter-->')
+        pattern3 = re.compile(r'<\!--main content-->([\s\S]*)<\!--\/chapter-->')
+        pattern4 = re.compile(r'<\!--main content-->([\s\S]*)<\!--\/main-->')
+        plist = [pattern1, pattern2, pattern3, pattern4]
+        for pattern in plist:
             search_result = pattern.search(html)
-        content = search_result.groups()[0]
-        return content
+            if search_result != None:
+                content = search_result.groups()[0]
+                return cleaner(content)
+        return ''
 
-def cleaner(text):
-    replace_dict = {
-        '<!--main content-->':'\n',
-        '<!--chapter content-->':'\n',
-        '<div class=\"userstuff module\" role=\"article\">': '',
-        '<div class=\"userstuff\">': '',
-        '<h3 class=\"landmark heading\" id=\"work\">':'',
-        '<div id=\"chapters\" role=\"article\">':'',
-        '</h3>': '\n',
-        '<p>':'',
-        '</p>': '\n',
-        '<br/>': '\n',
-        '<div>': '',
-        '</div>':'',
-        '<p dir=\"ltr\">':'',
-        '<blockquote class=\"userstuff\">': '',
-        '</blockquote>':'\n',
-        '<!-- end cache -->':'\n'
-    }
-    if text!= None:
-        for key in replace_dict.keys():
-            text = text.replace(key, replace_dict[key])
-        return text.strip()
-    else:
-        return None
-    
+if __name__ == '__main__':
+    a = article('https://archiveofourown.org/chapters/54629893?view_adult=true')
+    s = a.getchap()
+    print(s)
+
+
+
