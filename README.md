@@ -71,7 +71,7 @@ Press enter to close program： 按Enter结束程序
 
 ```__main__.py```中启动器的```process_num```可改，这是我使用multiprocessing模块打开的多进程池，原来是3个进程，可以加
 
-```article.py```里有个```replace_dict``` 是清理html时需要替换掉到的字符 - 目标字符的字典形式，可改（如果漏清或者少清了什么东西）
+```article.py```里有个```replace_dict``` 是清理html时需要替换掉到的字符 - 目标字符的字典形式，可改（如果误删或者少清了什么东西）
 
 代码注释持续更新中
 
