@@ -36,10 +36,12 @@ def exportarticles(pages_ls):
         url_ls = pageitem.getarticles()
         if url_ls != []:
             # if __name__ == '__main__' is needed for multiprocessing.
-            p = multiprocessing.Pool(process_num)
             print(url_ls)
-            for url in url_ls:
-                p.apply_async(exportsinglearticle, args = (url, False))
+            p = multiprocessing.Pool(process_num)
+            # cannot use for url in url_ls, else cannot stop while two pages are the same.
+            for i in range(len(url_ls)):
+                p.apply_async(exportsinglearticle, args = (url_ls[i], False))
+                print('pool started')
             p.close()
             p.join()
         else:
@@ -68,5 +70,5 @@ if __name__ == '__main__':
     runner(pageurl, process_num)
     t2 = datetime.datetime.now()
     t3 = t2 - t1
-    print('Spend Time: ' + t3)
+    print('Spend Time: ' + str(t3))
 
