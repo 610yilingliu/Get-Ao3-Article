@@ -6,11 +6,14 @@ class ao3(object):
     def __init__(self, url, header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
     }):
-        req = requests.get(url, headers = header)
-        html = req.text
-        self.__html = html
-        self.__url = url
-        self.__urltype = 0
+        try:
+            req = requests.get(url, headers = header)
+            html = req.text
+            self.__html = html
+            self.__url = url
+        except:
+            print('Cannot visit provided url, please check your network and url address')
+            exit()
 
     def geturl(self):
         return self.__url
@@ -41,7 +44,10 @@ class urlanalyzer(object):
         pattern_searchresult = re.compile(r'&work_search%')
         pattern_fandom = re.compile(r'works\?fandom_id=')
         pattern_singlearticle = re.compile(r'/works/\d{1,}$')
-        if url.endswith('works'):
+        if not url.startswith('https://archiveofourown.org/'):
+            print('Please make sure your url is from https://archiveofourown.org/, instead of a mirror website')
+            exit()
+        elif url.endswith('works'):
             self.__urltype = 'works'
         elif re.search(pattern_pagenum, url) != None:
             self.__urltype = 'pagenum'

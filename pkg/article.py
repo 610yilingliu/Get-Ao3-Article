@@ -109,7 +109,8 @@ class article(object):
             if search_result != None:
                 content = search_result.groups()[0]
                 return cleaner(content)
-        return ''
+        print('Page type not supported, please check if it is from ao3')
+        exit()
 
 
 

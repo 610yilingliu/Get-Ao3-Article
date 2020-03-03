@@ -63,9 +63,13 @@ def runner(pageurl, process_num, fetch_pages = True):
         
 # write for multiprocessing
 if __name__ == '__main__':
-    pageurl = 'https://archiveofourown.org/works/search?utf8=%E2%9C%93&work_search%5Bquery%5D=%E6%98%8E%E5%94%90'
+    pageurl = input('Please paste an AO3 url here: ')
+    fetch_pages_command = input('Get all pages related to this url? if yes, type y (lowercase), if not,type anything else')
     process_num = 3
-    fetch_pages = True
+    if fetch_pages_command == 'y':
+        fetch_pages = True
+    else:
+        fetch_pages = False
     t1 = datetime.datetime.now()
     runner(pageurl, process_num, fetch_pages = fetch_pages)
     t2 = datetime.datetime.now()
