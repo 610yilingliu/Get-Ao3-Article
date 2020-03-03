@@ -14,9 +14,9 @@
 
 ### 方法1：
 
-对于无计算机基础用户：直接下载百度网盘中```ao3_fetcher.exe```,打开即可开始使用
+对于无计算机基础用户：直接下载百度网盘中```ao3文章批量下载工具.exe```,解压后点击```ao3_fetcher.exe```即可开始使用
 
-网盘链接: https://pan.baidu.com/s/10QSyovSYvwTavAkcZAyqzA 提取码: 7qir
+链接: https://pan.baidu.com/s/1IkFxlIhw3KL2Sitp0obQpw 提取码: n2xa 复制这段内容后打开百度网盘手机App，操作更方便哦
 
 然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在```ao3_fetcher.exe```同目录```article```文件夹下, 完成后按Enter结束。
 
