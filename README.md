@@ -1,8 +1,52 @@
-# Get-Ao3-Article
+# AO3文章批量下载工具
 批量获取AO3文章并保存为文档（Get Ao3 articles through auther name or tags, save as image）
 
 原定保存为长图，但因为selenium需要chrome driver，得额外安装所以还是保存为文档了
 
 使用正则表达式清理网页非常容易出问题（发文格式不同，对应的html戳也不同），目前尚在测试排查bug
 
-目前article.py是bug重灾区
+目前article.py是bug重灾区, 如果在下载文章时发现文章内容中有很多奇怪的字符（HTML编码）请将解析错误的页面发邮件给 <yilingliu1994@gmail.com>，人在秒回
+
+如果一段时间没回，发 <22214014@student.uwa.edu.au>也可, 目前我人因为travel restriction暂时还在国内，前面的常用邮箱在梯子出问题时是无法访问的（重申一遍，想举报的就别白费功夫了，我用的是学校提供的合法梯子。自己在aws搭建的梯子服务器其实更加稳定，但是目前不敢用）
+
+
+## 使用方法：
+
+把整个目录拉下来， 命令行中进入项目目录
+
+按照你的python电脑中是否双版本python共存（本项目基于python3，在python2下无法运行）
+
+python3 单版本下：
+```python pkg```
+
+python2，python3共存的情况下：
+```python3 pkg```
+
+然后按照提示输入ao3链接以及确认是否获取该链接下所有相关目录链接即可，下载完成后的文章在同目录```./article```文件夹下
+
+中文命令行有时候会乱码，所以我所有的提示信息都是用英文写的，全是字面意思。
+
+Cannot visit provided url, please check your network and url address ： 链接无法访问，清检查你的网络状态（如果开着梯子，请开全局模式）。请勿输入镜像网站链接或其他网址
+
+Page type not supported, please check if it is from ao3： 该网址不是ao3链接
+
+Analyzing xxx ： 正在解析xxx网址
+
+Exporting xxx: 正在将xxx文输出至本地txt文件
+
+Downloading Finished: 下载完成
+
+Time to finish this downloading process: xxx ： 花费时间：xxx
+
+## 针对同行们的源码修改指路
+
+```__main__.py```中启动器的```process_num```可改，这是我使用multiprocessing模块打开的多进程池，原来是3个进程，可以加
+
+···article.py```里有个```replace_dict``` 是清理html时需要替换掉到的字符 - 目标字符的字典形式，可改（如果漏清或者少清了什么东西）
+
+代码注释持续更新中
+
+
+作者: 
+Windy_风逝无殇 2020.3.3
+微博 [https://weibo.com/u/2098339772/home?wvr=5&lf=reg](@天策府风逝无殇)

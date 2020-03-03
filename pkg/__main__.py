@@ -74,5 +74,6 @@ if __name__ == '__main__':
     runner(pageurl, process_num, fetch_pages = fetch_pages)
     t2 = datetime.datetime.now()
     t3 = t2 - t1
+    print('Downloading Finished')
     print('Time to finish this downloading process: ' + str(t3))
 
