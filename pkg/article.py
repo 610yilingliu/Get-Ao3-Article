@@ -23,7 +23,11 @@ def cleaner(text):
         '<!--/chapter-->': '\n',
         '<h3 class="heading">':'',
         '<div class="notes module" role="complementary">':'',
-        '</a>':' '
+        '</a>':' ',
+        '<b>':'',
+        '</b>':'',
+        '<!--/descriptions-->': '\n',
+        '<p class=\"jump\">(See the end of the work for <a href=\"#work_endnotes\">more notes .)': '\n',
 
     }
     if text!= None:

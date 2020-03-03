@@ -58,7 +58,7 @@ class urlanalyzer(object):
             self.__urltype = 'collections'
         elif url.endswith('series'):
             self.__urltype = 'series'
-        elif re.search(pattern_singlearticle, url)!= None:
+        elif re.search(pattern_singlearticle, url)!= None or url.endswith('view_adult=true'):
             self.__urltype = 'article'
         else:
             self.__url = url + '/works'
