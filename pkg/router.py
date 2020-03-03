@@ -13,6 +13,7 @@ class ao3(object):
             self.__url = url
         except:
             print('Cannot visit provided url, please check your network and url address')
+            input("Press enter to close program")
             exit()
 
     def geturl(self):
@@ -46,6 +47,7 @@ class urlanalyzer(object):
         pattern_singlearticle = re.compile(r'/works/\d{1,}$')
         if not url.startswith('https://archiveofourown.org/'):
             print('Please make sure your url is from https://archiveofourown.org/, instead of a mirror website')
+            input("Press enter to close program")
             exit()
         elif url.endswith('works'):
             self.__urltype = 'works'

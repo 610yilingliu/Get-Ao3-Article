@@ -110,6 +110,7 @@ class article(object):
                 content = search_result.groups()[0]
                 return cleaner(content)
         print('Page type not supported, please check if it is from ao3')
+        input("Press enter to close program")
         exit()
 
 

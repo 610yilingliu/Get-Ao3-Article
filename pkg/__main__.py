@@ -63,8 +63,9 @@ def runner(pageurl, process_num, fetch_pages = True):
         
 # write for multiprocessing
 if __name__ == '__main__':
-    pageurl = input('Please paste an AO3 url here: ')
-    fetch_pages_command = input('Get all pages related to this url? if yes, type y (lowercase), if not,type anything else')
+    print("本程序在中国大陆无法使用，请让你在海外的朋友，或有梯子（代理需要开启全局模式）的朋友帮忙下载AO3中文章")
+    pageurl = input('Please paste an AO3 url here:  ')
+    fetch_pages_command = input('Get all pages related to this url? if yes, type y (lowercase), if not,type anything else:  ')
     process_num = 3
     if fetch_pages_command == 'y':
         fetch_pages = True
@@ -76,4 +77,5 @@ if __name__ == '__main__':
     t3 = t2 - t1
     print('Downloading Finished')
     print('Time to finish this downloading process: ' + str(t3))
+    input("Press enter to close program")
 
