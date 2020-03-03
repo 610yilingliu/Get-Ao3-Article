@@ -2,6 +2,10 @@ import requests
 import re
 
 def cleaner(text):
+    '''
+    Clean the html code
+    Variable type: text - String
+    '''
     replace_dict = {
         '<!--main content-->':'\n',
         '<!--chapter content-->':'\n',
@@ -39,6 +43,10 @@ def cleaner(text):
     
 
 class article(object):
+    '''
+    Get article page content
+    Variable type: url - String
+    '''
     def __init__(self, url, 
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
@@ -49,12 +57,21 @@ class article(object):
         self.__url = url
 
     def geturl(self):
+        '''
+        return url string
+        '''
         return self.__url
     
     def gethtml(self):
+        '''
+        return html string
+        '''
         return self.__html
 
     def gettitle(self):
+        '''
+        return title string
+        '''
         html = self.__html
         pattern = re.compile(r'<title>\n(.*)\n')
         title = pattern.search(html).groups()[0]
@@ -63,12 +80,18 @@ class article(object):
         return title
     
     def getauthor(self):
+        '''
+        return author string
+        '''
         html = self.__html
         pattern = re.compile(r'<a rel=\"author\" href=\"\/users\/(.*?)/')
         author = pattern.search(html).groups()[0]
         return author
 
     def getchap(self):
+        '''
+        return chapter list
+        '''
         html = self.__html
         pattern = re.compile(r'<h3 class=\"title\">\s+<a href=.*>(.*?)</a>')
         search_result = pattern.findall(html)
@@ -78,6 +101,9 @@ class article(object):
         return None
     
     def getsummary(self):
+        '''
+        return summary list
+        '''
         html = self.__html
         pattern = re.compile(r'<h3 class=\"heading\">Summary\:<\/h3>([\s\S]*)<\/blockquote>')
         search_result = pattern.findall(html)
@@ -87,7 +113,9 @@ class article(object):
         return None
 
     def getnotes(self):
-        '''return list'''
+        '''
+        return notes list
+        '''
         html = self.__html
         pattern = re.compile(r'<h3 class=\"heading\">Notes\:<\/h3>([\s\S]*?)<\/blockquote>')
         search_result = pattern.findall(html)
@@ -97,6 +125,9 @@ class article(object):
         return None
 
     def getcontent(self):
+        '''
+        return content string
+        '''
         html = self.__html
         # not good enough.(?:<\!--main content-->|<\!--chapter content-->)[\s\S]*(?:<\!--\/chapter-->|<\!--\/main-->) works in regexr but does not work here
         pattern1 = re.compile(r'<\!--chapter content-->([\s\S]*)<\!--\/main-->')

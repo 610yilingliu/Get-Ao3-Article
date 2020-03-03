@@ -1,6 +1,10 @@
 import os
 
 def write_totxt(subfolder, title, author, content, chapter, summary, notes):
+    '''
+    Export fetched content from AO3 to a local txt file
+    Variables type: subfolder - string, title - string, author - string, content - string, chapter - list, summary - list, notes -list
+    '''
     if not os.path.exists(subfolder):
         os.mkdir(subfolder)
     # replace invalid chars from file name

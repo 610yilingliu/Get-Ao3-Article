@@ -7,6 +7,10 @@ from export import write_totxt
 
 
 def exportsinglearticle(url):
+    '''
+    Bind method to put article from a url to a txt file
+    Variable type: url - String
+    '''
     article_wanted = article(url)
     title = article_wanted.gettitle()
     author = article_wanted.getauthor()
@@ -19,6 +23,11 @@ def exportsinglearticle(url):
 
 
 def exportarticles(pages_ls):
+    '''
+    Bind method to get urls from every element from a page list, them use exportsinglearticle() to export
+    Multiprocessing is applied
+    Variable type: pages_ls - list 
+    '''
     stack = []
     cutpattern = re.compile(r'<\!--main content-->([\s\S]*)<\!--\/content-->')
     for page in pages_ls:
