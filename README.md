@@ -12,6 +12,8 @@
 
 ## 使用方法：
 
+对于无计算机基础用户：直接下载ao3_fetcher.exe即可
+
 把整个目录拉下来， 命令行中进入项目目录
 
 按照你的python电脑中是否双版本python共存（本项目基于python3，在python2下无法运行）
@@ -22,9 +24,13 @@ python3 单版本下：
 python2，python3共存的情况下：
 ```python3 pkg```
 
-然后按照提示输入ao3链接以及确认是否获取该链接下所有相关目录链接即可，下载完成后的文章在同目录```./article```文件夹下
+然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在同目录```./article```文件夹下, 完成后按Enter结束
 
 中文命令行有时候会乱码，所以我所有的提示信息都是用英文写的，全是字面意思。
+
+Please paste an AO3 url here: 在这里黏贴ao3链接
+
+Get all pages related to this url? if yes, type y (lowercase), if not,type anything else: 是否获取该链接下所有相关链接？（针对多页的搜索结果）如果是请按小写y（注意全角半角！一定要是半角字符），如果只想获取当前页内容，随便按个什么
 
 Cannot visit provided url, please check your network and url address ： 链接无法访问，清检查你的网络状态（如果开着梯子，请开全局模式）。请勿输入镜像网站链接或其他网址
 
@@ -37,6 +43,8 @@ Exporting xxx: 正在将xxx文输出至本地txt文件
 Downloading Finished: 下载完成
 
 Time to finish this downloading process: xxx ： 花费时间：xxx
+
+Press enter to close program： 按Enter结束程序
 
 ## 针对同行们的源码修改指路
 
