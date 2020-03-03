@@ -55,7 +55,7 @@ Analyzing xxx ： 正在解析xxx网址
 
 Exporting xxx: 正在将xxx文输出至本地txt文件
 
-Downloading Finished: 下载完成
+Download Finished: 下载完成
 
 Time to finish this downloading process: xxx ： 花费时间：xxx
 

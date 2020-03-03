@@ -63,6 +63,8 @@ def runner(pageurl, process_num, fetch_pages = True):
         
 # write for multiprocessing
 if __name__ == '__main__':
+    # pyintaller helper, prevent from bugs
+    multiprocessing.freeze_support()
     print("本程序在中国大陆无法使用，请让你在海外的朋友，或有梯子（代理需要开启全局模式）的朋友帮忙下载AO3中文章")
     pageurl = input('Please paste an AO3 url here:  ')
     fetch_pages_command = input('Get all pages related to this url? if yes, type y (lowercase), if not,type anything else:  ')
@@ -75,7 +77,7 @@ if __name__ == '__main__':
     runner(pageurl, process_num, fetch_pages = fetch_pages)
     t2 = datetime.datetime.now()
     t3 = t2 - t1
-    print('Downloading Finished')
+    print('Download Finished')
     print('Time to finish this downloading process: ' + str(t3))
     input("Press enter to close program")
 
