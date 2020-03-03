@@ -1,7 +1,7 @@
 # AO3文章批量下载工具
-批量获取AO3文章并保存为文档（Get Ao3 articles through auther name or tags, save as image）
+批量获取AO3文章并保存为文档（Get Ao3 articles through auther name or tags, save as txt file）
 
-原定保存为长图，但因为selenium需要chrome driver，得额外安装所以还是保存为文档了
+原定保存为长图，但因为selenium大佬需要chrome driver，得额外安装所以还是保存为文档了
 
 使用正则表达式清理网页非常容易出问题（发文格式不同，对应的html戳也不同），目前尚在测试排查bug
 
@@ -12,7 +12,20 @@
 
 ## 使用方法：
 
-对于无计算机基础用户：直接下载ao3_fetcher.exe即可
+### 方法1：
+
+对于无计算机基础用户：直接下载百度网盘中```ao3_fetcher.exe```,打开即可开始使用
+
+网盘链接: https://pan.baidu.com/s/10QSyovSYvwTavAkcZAyqzA 提取码: 7qir
+
+然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在```ao3_fetcher.exe```同目录```article```文件夹下, 完成后按Enter结束。
+
+至于在小黑窗上显示的信息是什么意思，请看后面的提示信息说明
+
+
+### 方法2
+
+首先请确保你有python3环境，否则无法使用此方法。
 
 把整个目录拉下来， 命令行中进入项目目录
 
@@ -24,7 +37,9 @@ python3 单版本下：
 python2，python3共存的情况下：
 ```python3 pkg```
 
-然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在同目录```./article```文件夹下, 完成后按Enter结束
+然后和exe文件使用方法一样，按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在同目录```./article```文件夹下, 完成后按Enter结束
+
+## 提示信息说明
 
 中文命令行有时候会乱码，所以我所有的提示信息都是用英文写的，全是字面意思。
 
