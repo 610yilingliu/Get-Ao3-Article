@@ -2,6 +2,28 @@ import requests
 import re
 import string
 
+def url_decorator(link_rawls):
+    '''
+    link_rawls: string or list
+    '''
+    if type(link_rawls) == type([]):
+        if link_rawls!=[]:
+            link_ls = []
+            for link in link_rawls:
+                if not link.endswith('?view_adult=true'):
+                    link = 'https://archiveofourown.org/' + link + '?view_adult=true'
+                else: 
+                    link = 'https://archiveofourown.org/' + link
+                link_ls.append(link)
+            return link_ls
+        return []
+    elif type(link_rawls) == type(''):
+        link = link_rawls
+        if not link.endswith('?view_adult=true'):
+            link = link + '?view_adult=true'
+        return link
+
+
 class ao3(object):
     '''
     AO3 search result object, with its url, html and url of articles inside it
@@ -39,17 +61,9 @@ class ao3(object):
         html = self.__html
         pattern = re.compile(r'<h4 class=\"heading\">\n\s{1,}<a href=\"(.*?)\">')
         link_rawls = pattern.findall(html)
-        if link_rawls!=[]:
-            link_ls = []
-            for link in link_rawls:
-                if not link.endswith('?view_adult=true'):
-                    link = 'https://archiveofourown.org/' + link + '?view_adult=true'
-                else: 
-                    link = 'https://archiveofourown.org/' + link
-                link_ls.append(link)
-            return link_ls
-        else:
-            return []
+        links = url_decorator(link_rawls)
+        return links
+
 
 class urlanalyzer(object):
     '''
@@ -61,7 +75,8 @@ class urlanalyzer(object):
         pattern_pagenum = re.compile(r'\?page=(\d{1,})$')
         pattern_searchresult = re.compile(r'&work_search%')
         pattern_fandom = re.compile(r'works\?fandom_id=')
-        pattern_singlearticle = re.compile(r'/works/\d{1,}$')
+        pattern_singlearticle = re.compile(r'\/works\/\d{1,}$')
+        pattern_singlechap = re.compile(r'\/works\/\d{1,}\/chapters\/\d{1,}$')
         '''
         If not a AO3 link
         '''
@@ -88,12 +103,17 @@ class urlanalyzer(object):
             self.__urltype = 'series'
         elif re.search(pattern_singlearticle, url)!= None or url.endswith('view_adult=true'):
             self.__urltype = 'article'
+        elif re.search(pattern_singlechap, url)!= None:
+            self.__urltype = 'chap'
         else:
             self.__url = url + '/works'
             self.__urltype = 'works'
 
     def geturl(self):
-        return self.__url
+        if (not self.__url.endswith('?view_adult=true')) and (self.__urltype == 'chap'):
+            return self.__url + '?view_adult=true'
+        else:
+            return self.__url
 
     def geturltype(self):
         return self.__urltype

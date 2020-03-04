@@ -17,7 +17,6 @@ def write_totxt(subfolder, title, author, content, chapter, summary, notes):
             winfname += '_'
 
     name = winfname + '.txt'
-    print(name)
     with open(subfolder + '/' + name, 'w', encoding = 'utf-8') as f:
         f.write(title.encode('utf-8').decode('utf-8'))
         f.write('\n')

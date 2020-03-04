@@ -50,11 +50,12 @@ class article(object):
     def __init__(self, url, 
     header = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36',
-    } ):
+    }):
         req = requests.get(url, headers = header)
         html = req.text
         self.__html = html
         self.__url = url
+        self.__header = header
 
     def geturl(self):
         '''
@@ -77,6 +78,7 @@ class article(object):
         title = pattern.search(html).groups()[0]
         # delete space
         title = title.strip()
+        title = title.replace('&#39;','\'')
         return title
     
     def getauthor(self):
@@ -84,8 +86,10 @@ class article(object):
         return author string
         '''
         html = self.__html
-        pattern = re.compile(r'<a rel=\"author\" href=\"\/users\/(.*?)/')
-        author = pattern.search(html).groups()[0]
+        pattern = re.compile(r'(?<=<a rel="author" href="\/users\/)(.*?)(?=<\/a>)')
+        mixed = pattern.search(html).groups()[0]
+        pattern2 = re.compile(r'(?<=\">)(.*)')
+        author = pattern2.search(mixed).groups()[0]
         return author
 
     def getchap(self):
@@ -140,10 +144,33 @@ class article(object):
             if search_result != None:
                 content = search_result.groups()[0]
                 return cleaner(content)
-        print('Page type not supported, please check if it is from ao3')
-        input("Press enter to close program")
-        exit()
+        else:
+            print('Page type not supported, please check if it is from ao3')
+            print(self.geturl())
+            input("Press enter to close program")
+            exit()
+
+    def get_related_chaps(self):
+        '''
+        return related chapters(list)
+        '''
+        html = self.__html
+        pattern = re.compile(r'(?<=a href=\")(.*)(?=\">Full-page index)')
+        res = re.search(pattern, html)
+        if res != None:
+            list_suffix = res.groups()[0]
+            chap_list_url = 'https://archiveofourown.org/' +  list_suffix
+            list_html = requests.get(chap_list_url, headers = self.__header).text
+            article_pattern = re.compile(r'(?<=<li><a href=\"\/)works\/\d{1,}\/chapters\/\d{1,}(?=\")')
+            article_urls_suffix = re.findall(article_pattern, list_html)
+            article_urls = ['https://archiveofourown.org/' + url for url in article_urls_suffix]
+            return article_urls
+        return None
 
 
 
 
+# if __name__ == '__main__':
+#     a = article('https://archiveofourown.org/works/22393369?view_adult=true?')
+#     re = a.get_related_chaps()
+#     print(re)
