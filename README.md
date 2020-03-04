@@ -14,6 +14,11 @@
 
 如果一段时间没回，发 <22214014@student.uwa.edu.au>也可, 目前我人因为travel restriction暂时还在国内，前面的常用邮箱在梯子出问题时是无法访问的（重申一遍，想举报的就别白费功夫了，我用的是学校提供的合法梯子。自己在aws搭建的梯子服务器其实更加稳定，但是目前不敢用）
 
+## 更新日志
+
+2020.3.4
+
+增加文章内分章节获取功能
 
 ## 使用方法：
 
@@ -23,7 +28,7 @@
 
 链接: https://pan.baidu.com/s/1IkFxlIhw3KL2Sitp0obQpw 提取码: n2xa 复制这段内容后打开百度网盘手机App，操作更方便哦
 
-然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在```ao3_fetcher.exe```同目录```article```文件夹下, 完成后按Enter结束。
+然后按照提示输入ao3链接以及确认是否获取该链接下所有相关链接/相关分章节即可，下载完成后的文章在```ao3_fetcher.exe```同目录```article```文件夹下, 完成后按Enter结束。
 
 至于在小黑窗上显示的信息是什么意思，请看后面的提示信息说明
 
@@ -42,7 +47,7 @@ python3 单版本下：
 python2，python3共存的情况下：
 ```python3 pkg```
 
-然后和exe文件使用方法一样，按照提示输入ao3链接以及确认是否获取该链接下所有相关链接即可，下载完成后的文章在同目录```./article```文件夹下, 完成后按Enter结束
+然后和exe文件使用方法一样，按照提示输入ao3链接以及确认是否获取该链接下所有相关链接/相关分章节即可，下载完成后的文章在同目录```./article```文件夹下, 完成后按Enter结束
 
 ## 提示信息说明
 
@@ -50,7 +55,9 @@ python2，python3共存的情况下：
 
 Please paste an AO3 url here: 在这里黏贴ao3链接
 
-Get all pages related to this url? if yes, type y (lowercase), if not,type anything else: 是否获取该链接下所有相关链接？（针对多页的搜索结果）如果是请按小写y（注意全角半角！一定要是半角字符），如果只想获取当前页内容，随便按个什么
+Get all pages related to this url? if yes, type y (lowercase), if not,type anything else: 是否获取该链接下所有相关链接(其实是搜索结果翻页功能)？（针对多页的搜索结果）如果是请按小写y（注意全角半角！一定要是半角字符），如果只想获取当前页内容，随便按个什么
+
+Get all chaps related to pages in this url? if yes, type y (lowercase), if not,type anything else: 是否获取所有分章节？如果是请按小写y，否则随便按什么
 
 Cannot visit provided url, please check your network and url address ： 链接无法访问，清检查你的网络状态（如果开着梯子，请开全局模式）。请勿输入镜像网站链接或其他网址
 
