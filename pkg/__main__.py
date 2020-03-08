@@ -6,7 +6,7 @@ from article import article
 from export import write_totxt
 
 
-def exportsinglearticle(url):
+def exportsinglearticle(url,silent = False):
     '''
     Bind method to put article from a url to a txt file
     Variable type: url - String
@@ -20,7 +20,8 @@ def exportsinglearticle(url):
     notes = article_wanted.getnotes()
     chapter = article_wanted.getchap()
     related_chaps = article_wanted.get_related_chaps()
-    print('Exporting ' + title)
+    if silent!= False:
+        print('Exporting ' + title)
     write_totxt('./article', title = title, author = author, content = content, chapter = chapter, summary = summary, notes = notes)
     return related_chaps
 
@@ -66,7 +67,7 @@ def exportarticles(pages_ls, getall_chaps):
             p = multiprocessing.Pool(process_num)
             # cannot use for url in url_ls, else cannot stop while two pages are the same.
             for i in range(len(url_ls)):
-                p.apply_async(exportsinglearticle, args = (url_ls[i],))
+                p.apply_async(exportsinglearticle, args = (url_ls[i], False))
             p.close()
             p.join()
         else:

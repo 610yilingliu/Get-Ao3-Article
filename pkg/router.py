@@ -10,6 +10,8 @@ def url_decorator(link_rawls):
         if link_rawls!=[]:
             link_ls = []
             for link in link_rawls:
+                if link.startswith('/'):
+                    link = link.lstrip('/')
                 if not link.endswith('?view_adult=true'):
                     link = 'https://archiveofourown.org/' + link + '?view_adult=true'
                 else: 
