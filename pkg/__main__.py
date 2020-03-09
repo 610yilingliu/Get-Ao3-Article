@@ -20,7 +20,7 @@ def exportsinglearticle(url,silent = False):
     notes = article_wanted.getnotes()
     chapter = article_wanted.getchap()
     related_chaps = article_wanted.get_related_chaps()
-    if silent!= False:
+    if silent == False:
         print('Exporting ' + title)
     write_totxt('./article', title = title, author = author, content = content, chapter = chapter, summary = summary, notes = notes)
     return related_chaps
