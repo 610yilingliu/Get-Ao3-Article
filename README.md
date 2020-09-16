@@ -79,13 +79,6 @@ Press enter to close program： 按Enter结束程序
 
 ```article.py```里有个```replace_dict``` 是清理html时需要替换掉到的字符 - 目标字符的字典形式，可改（如果误删或者少清了什么东西）
 
-代码注释持续更新中
+## 这个其实写的很烂,但是最近似乎没有人用,所以就暂时不更新了...特别是multiprocessing那边,当时完全不懂乱写的-.-!
 
 
-作者: 
-
-Windy_风逝无殇 
-
-2020.3.3
-
-微博 [@天策府风逝无殇](https://weibo.com/u/2098339772/home?wvr=5&lf=reg)
