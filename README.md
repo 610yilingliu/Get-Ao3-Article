@@ -1,6 +1,6 @@
 # AO3文章批量下载工具
 
-## 2020-02-08: 项目全部重构
+## 2021-02-08: 项目全部重构
 
 新项目: https://github.com/610yilingliu/download_ao3_v2
 
